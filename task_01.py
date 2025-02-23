@@ -3,10 +3,48 @@ from trie import Trie
 
 class Homework(Trie):
     def count_words_with_suffix(self, pattern) -> int:
-        pass
+        """
+        Counts the number of words in the Trie that end with a given suffix.        
+
+        Args:
+            pattern (str): The suffix to search for
+
+        Returns:
+            int: The number of words with the given suffix
+        """
+        count = sum(1 for key in self.keys() if key.endswith(pattern))
+        # print(f"Words with suffix '{pattern}': {count}")
+        return count
 
     def has_prefix(self, prefix) -> bool:
-        pass
+        """
+        Checking for words with a given prefix in the Trie.
+
+        Args:
+            prefix (str): The prefix to search for.
+
+        Returns:
+            bool: True if the prefix is found, False otherwise.
+
+        Raises:
+            TypeError: If the prefix is not a non-empty string.
+        """
+        # Перевірка вхідних даних
+        if not isinstance(prefix, str) or not prefix:
+            raise TypeError("Prefix must be a non-empty string")
+
+        current_node = self.root
+        path = []
+        # Пошук префікса
+        for char in prefix:
+            if char not in current_node.children:
+                print(
+                    f"Prefix '{prefix}' not found. Founded part '{''.join(path)}'"
+                )
+                return False
+            path.append(char)
+            current_node = current_node.children[char]
+        return True
 
 
 if __name__ == "__main__":
@@ -26,3 +64,5 @@ if __name__ == "__main__":
     assert trie.has_prefix("bat") == False
     assert trie.has_prefix("ban") == True  # banana
     assert trie.has_prefix("ca") == True  # cat
+
+    print("All tests passed")
