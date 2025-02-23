@@ -4,7 +4,7 @@ from trie import Trie
 class Homework(Trie):
     def count_words_with_suffix(self, pattern) -> int:
         """
-        Counts the number of words in the Trie that end with a given suffix.        
+        Counts the number of words in the Trie that end with a given suffix.
 
         Args:
             pattern (str): The suffix to search for
@@ -12,6 +12,10 @@ class Homework(Trie):
         Returns:
             int: The number of words with the given suffix
         """
+        # Перевірка вхідних даних
+        if not isinstance(pattern, str) or not pattern:
+            raise TypeError("Prefix must be a non-empty string")
+
         count = sum(1 for key in self.keys() if key.endswith(pattern))
         # print(f"Words with suffix '{pattern}': {count}")
         return count
@@ -38,9 +42,7 @@ class Homework(Trie):
         # Пошук префікса
         for char in prefix:
             if char not in current_node.children:
-                print(
-                    f"Prefix '{prefix}' not found. Founded part '{''.join(path)}'"
-                )
+                print(f"Prefix '{prefix}' not found. Founded part '{''.join(path)}'")
                 return False
             path.append(char)
             current_node = current_node.children[char]
