@@ -42,7 +42,7 @@ class Homework(Trie):
         # Пошук префікса
         for char in prefix:
             if char not in current_node.children:
-                print(f"Prefix '{prefix}' not found. Founded part '{''.join(path)}'")
+                print(f"Prefix '{prefix}' not found. Found part: '{''.join(path)}'")
                 return False
             path.append(char)
             current_node = current_node.children[char]
